@@ -5,14 +5,15 @@ return {
     },
     {
         "nvim-neotest/neotest",
-        opts = {
-            adapters = {
-                ["neotest-python"] = {
-                    dap = { justMyCode = false },
-                    runner = "pytest",
-                    args = { "-W", "ignore:DeprecationWarning" },
+        config = function()
+            require("neotest").setup({
+                adapters = {
+                    require("neotest-python")({
+                        dap = { justMyCode = false },
+                        args = { "-W", "ignore::DeprecationWarning" },
+                    }),
                 },
-            },
-        },
+            })
+        end,
     },
 }
